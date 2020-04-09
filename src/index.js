@@ -2,16 +2,63 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import {Router} from 'react-router-dom'
+
+// REDUX-STUFF
+import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
+import {Provider} from 'react-redux'
+import thunk from 'redux-thunk';
+import userReducer from './Redux/userReducer'
+import postReducer from './Redux/postReducer'
+import history from './history'
+//import package here and pass it to router
+ 
+// const saveToLocalStorage = (state) => {
+//   try {
+//     const serializedState = JSON.stringify(state)
+//     localStorage.setItem('state', serializedState)
+//   } catch(e){
+//     console.log(e)
+//   }
+// }
+
+// const loadFromLocalStorage = () => {
+//   try {
+//     const serializedState = localStorage.setItem('state')
+//     if(serializedState === null) return undefined
+//     return JSON.parse(serializedState) 
+//   } catch(e){
+//     console.log(e)
+//     return undefined
+//   }
+// }
+
+
+let rootReducer = () => {
+  return {
+  user: userReducer,
+  posts: postReducer
+  }
+}
+
+// const persistedState = loadFromLocalStorage
+
+const jointReducer = combineReducers(rootReducer())
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(
+  jointReducer, composeEnhancers(applyMiddleware(thunk))
+)
+
+// store.subscribe(() => saveToLocalStorage(store.getState()))
+
+
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+  <Provider store={store}>
+    <Router history={history}>
+      <App/>
+    </Router>
+  </Provider>
+, document.getElementById('root'));
