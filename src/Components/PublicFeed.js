@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap'
 
 class PublicFeed extends Component {
     render() {
-      console.log(this.props.all)
+     
         return (
            
             <div className="grid">
@@ -21,7 +21,7 @@ class PublicFeed extends Component {
     }
 }
 const mstp = (reduxState) => {
-    console.log(reduxState)
+    
     return {
       //these are ALL POSTS
       all: reduxState.posts.allArticles

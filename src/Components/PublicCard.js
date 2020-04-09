@@ -1,10 +1,13 @@
 import React from 'react'
+import {addPostToUser} from '../Redux/actions'
+import {connect} from 'react-redux'
+
 
 const PublicCard = (props) => {
  
-
+   
     const handleClick = () => {
-        console.log(props.article)
+        props.addPostToUser(props.article)
     }
 
 
@@ -30,4 +33,8 @@ const PublicCard = (props) => {
     )
 }
 
-export default PublicCard
+let mdtp = {
+    addPostToUser
+}
+
+export default connect(null,mdtp)(PublicCard)

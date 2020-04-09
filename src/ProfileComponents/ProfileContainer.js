@@ -6,7 +6,7 @@ import '../App.css'
 class ProfileContainer extends Component {
 
   render() {
-    console.log(this.props)
+    
     return (
       <div>
         {localStorage.token 

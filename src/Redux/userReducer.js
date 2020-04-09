@@ -16,6 +16,12 @@ const userReducer = (state = userInitialState, action) => {
       user_posts: action.payload.user.user_posts,
       token: action.payload.token
     }
+    case 'ADD_POST_TO_USER': {
+      return {
+        ...state,
+        user_posts: [...state.posts, action.payload]
+      }
+    }
     case 'SET_USER_INFORMATION':
       return {
         username: action.payload.username,

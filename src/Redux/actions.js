@@ -18,7 +18,6 @@ export const userPostFetch = user => {
           // 'message' if there is an error with creating the user, i.e. invalid username
           alert("try again")
         } else {
-          console.log("i'll register the user")
           localStorage.setItem("token", data.token)
           dispatch(setUserInformation(data.user))
           //this user has no history so the push to profile isn't showing up
@@ -47,7 +46,6 @@ export const userLoginFetch = user => {
           alert("try again")
         } else {
           localStorage.setItem("token", data.token)
-          console.log('this is the data from the user action',data)
           dispatch(loginUser(data.user))
           // history.push("/profile")
         }
@@ -73,6 +71,18 @@ export const loginUser = userObj => (
       type: "SET_USER_INFORMATION",
       payload: responseFromFetch
       
+    }
+  }
+
+  export const addPostToUser = (props) => {
+    console.log(props)
+    //fetch will go here
+  }
+
+  export const userPostData = (postObj) => {
+    return {
+      type: "ADD_POST_TO_USER",
+      payload: postObj
     }
   }
   
