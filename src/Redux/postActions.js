@@ -1,8 +1,9 @@
 
 export const fetchAndSetAllPosts = () => {
     return (dispatch) => {
-      fetch(`http://newsapi.org/v2/everything?domains=wsj.com&apiKey=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+      // fetch(`http://newsapi.org/v2/everything?domains=wsj.com&apiKey=${process.env.REACT_APP_GOOGLE_API_KEY}`)
       // fetch('https://jsonplaceholder.typicode.com/todos/1')
+      fetch('http://localhost:3000/news')
       .then(r => r.json())
       .then((posts) => {
         dispatch(setAllPosts(posts.articles))
@@ -18,32 +19,37 @@ export const fetchAndSetAllPosts = () => {
     
     
     
-    export const addPost = (postObject) => {
-      //   fetch("http://localhost:3000/posts", {
-      //     method: "POST",
-      //     headers: {
-      //       'Content-type': 'application/json',
-      //       'Accept': 'application/json'
-      //     },
-      //     body: JSON.stringify(
-      //       {
-      //         title: article.title,
-      //         content_url: article.url,
-      //         description: article.description,
-      //         url_image: article.urlToImage,
-      //         content_body: article.content  
-      //     }
-      //     )
-      //   })
-      // })
+    export const addPost = (articleObj) => {
+      return dispatch => {
+      return fetch("http://localhost:3000/posts", {
+          method: "POST",
+          headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(
+            {
+              title: articleObj.title,
+              content_url: articleObj.url,
+              description: articleObj.description,
+              url_image: articleObj.urlToImage,
+              content_body: articleObj.content  
+            }
+          )
+          .then(r => r.json())
+          .then(articleData => {
+            dispatch(addedArticleObject(articleData))
+          })
+        })
+      }
+    }  
   
-    let actionObject = {
-      type: "ADD_POST",
-      payload: postObject
+   export const addedArticleObject = (articleObj) => {
+      return { 
+        type: "ADD_POST",
+        payload: articleObj
     }
-  
-    return actionObject
-  
+
   }
   
   export const setAllPosts = (articlesArray) => {

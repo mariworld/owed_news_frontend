@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import {Router} from 'react-router-dom'
-
 // REDUX-STUFF
 import {createStore, applyMiddleware, compose, combineReducers} from 'redux'
 import {Provider} from 'react-redux'
@@ -34,22 +33,34 @@ import history from './history'
 // }
 
 
-let rootReducer = () => {
+// const persistConfig = {
+//   key: 'root',
+//   storage,
+//   whitelist: ['user']
+// }
+const rootReducer = () => {
   return {
   user: userReducer,
   posts: postReducer
   }
 }
 
-// const persistedState = loadFromLocalStorage
-
-const jointReducer = combineReducers(rootReducer())
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
-const store = createStore(
-  jointReducer, composeEnhancers(applyMiddleware(thunk))
-)
+const jointReducer = combineReducers(rootReducer())             
+
+// const persistedReducer = persistReducer(persistConfig, jointReducer)
+
+
+
+  const store = createStore(
+   jointReducer, composeEnhancers(applyMiddleware(thunk)))
+   
+  //  const persistor = persistStore(store)
+
+   
+
 
 // store.subscribe(() => saveToLocalStorage(store.getState()))
 
@@ -58,7 +69,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <Router history={history}>
-      <App/>
+        <App/>
     </Router>
   </Provider>
 , document.getElementById('root'));

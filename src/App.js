@@ -8,29 +8,18 @@ import PublicFeed from './Components/PublicFeed'
 import ProfileContainer from './ProfileComponents/ProfileContainer.js'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
+
 // Whatever you import from your actionCreator file will be the second argument in connect's first set of ()
-import {setUserInformation, loginUser, userLoginFetch} from './Redux/actions.js'
+import {loginUser, getProfileFetch, persistUser} from './Redux/actions.js'
 import {fetchAndSetAllPosts, setAllPosts, addPost} from './Redux/postActions.js'
 
 
 class App extends React.Component {
 
 
-  componentDidMount() {
-    if (localStorage.token) {
-      fetch("http://localhost:3000/persist", {
-        headers: {
-          "Authorization": `bearer ${localStorage.token}`
-        }
-      })
-      .then(r => r.json())
-      .then((resp) => {
-        console.log('is user here?',resp)
-        this.props.loginUser(resp)
-        this.props.history.push("/profile")
-
-      })
-    }
+  componentDidMount = () => {
+    this.props.persistUser()
+    // this.props.getProfileFetch()
     this.props.fetchAndSetAllPosts()
   }
 
@@ -100,7 +89,7 @@ class App extends React.Component {
   }
 
   render(){
-    
+    console.log(this.props)
     return (
       <div className="App">
         <NavBar/>
@@ -120,17 +109,24 @@ class App extends React.Component {
 const mapStateToProps = (reduxState) => {
   return {
     token: reduxState.user.token,
-    username: reduxState.user.username
+    // username: reduxState.user.username
+    currentUser: reduxState.user.currentUser
   }
 }
 
-let mapDispatchToProps = {
-  // setUserInformation,
-  loginUser,
-  setAllPosts,
-  fetchAndSetAllPosts
-}
+// let mapDispatchToProps = {
+//   // setUserInformation,
+//   loginUser,
+//   setAllPosts,
+//   fetchAndSetAllPosts,
+//   getProfileFetch
+// }
+const mapDispatchToProps = dispatch => ({
+  getProfileFetch: () => dispatch(getProfileFetch()),
+  fetchAndSetAllPosts: () => dispatch(fetchAndSetAllPosts()),
+  persistUser: () => dispatch(persistUser())
 
+})
 
 export default withRouter(
   connect(mapStateToProps, mapDispatchToProps)(App)

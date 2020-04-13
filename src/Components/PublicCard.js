@@ -1,13 +1,19 @@
 import React from 'react'
 import {addPostToUser} from '../Redux/actions'
+import {addPost} from '../Redux/postActions'
 import {connect} from 'react-redux'
 
 
 const PublicCard = (props) => {
  
-   
+ 
     const handleClick = () => {
-        props.addPostToUser(props.article)
+        if(props.all.allArticles.find((article) => article.title)){
+            props.addPostToUser(props.article)
+        } else {
+            props.addPost(props.article)
+        }
+
     }
 
 
@@ -34,7 +40,15 @@ const PublicCard = (props) => {
 }
 
 let mdtp = {
-    addPostToUser
+    addPostToUser,
+    addPost
 }
 
-export default connect(null,mdtp)(PublicCard)
+const mstp = (reduxState) => {
+    return {
+      //these are ALL POSTS
+      all: reduxState.posts
+    }
+  }
+
+export default connect(mstp,mdtp)(PublicCard)

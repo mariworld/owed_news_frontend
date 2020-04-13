@@ -6,10 +6,11 @@ import '../App.css'
 class ProfileContainer extends Component {
 
   render() {
-    
+  //  let {username} = this.props.user.currentUser
+   console.log(this.props)
     return (
       <div>
-        {localStorage.token 
+        {this.props.user 
         ? 
         <h2>{this.props.user.username}&apos;s Profile</h2>
         :
@@ -37,7 +38,7 @@ class ProfileContainer extends Component {
 
 const getInfoPlease = (reduxState) => {
   return {
-    user: reduxState.user,
+    user: reduxState.user.currentUser,
     posts: reduxState.posts,
     token: localStorage.token
   }

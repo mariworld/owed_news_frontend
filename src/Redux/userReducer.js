@@ -1,7 +1,10 @@
 let userInitialState = {
-  token: "",
-  username: "",
-  user_posts: []
+ currentUser:
+ {
+  //  token: "",
+  // username: "",
+  // user_posts: []
+} 
   
 }
 
@@ -9,17 +12,21 @@ let userInitialState = {
 const userReducer = (state = userInitialState, action) => {
   switch (action.type) {
     case 'LOGIN_USER': 
+    console.log('this state is being triggered',action)
     return {
-      ...state,
+      ...state, currentUser: action.payload
       // id: action.payload.id,
-      username: action.payload.user.username,
-      user_posts: action.payload.user.user_posts,
-      token: action.payload.token
+      // username: action.payload.username,
+      // user_posts: action.payload.user_posts,
+      // token: action.payload.token
     }
     case 'ADD_POST_TO_USER': {
+      console.log('this state is being triggered', state)
       return {
         ...state,
-        user_posts: [...state.posts, action.payload]
+        currentUser: {
+         user_posts: [...state.currentUser.user_posts, action.payload]
+        } 
       }
     }
     case 'SET_USER_INFORMATION':

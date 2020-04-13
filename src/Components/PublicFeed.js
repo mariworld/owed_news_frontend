@@ -10,7 +10,7 @@ class PublicFeed extends Component {
         return (
            
             <div className="grid">
-                {this.props.all.map(articleObj => {
+                {this.props.all.allArticles.map(articleObj => {
                     return <PublicCard
                             key={articleObj.id}
                             article={articleObj}/>
@@ -24,7 +24,16 @@ const mstp = (reduxState) => {
     
     return {
       //these are ALL POSTS
-      all: reduxState.posts.allArticles
+      all: reduxState.posts
     }
   }
-export default connect(mstp)(PublicFeed); 
+
+//   const mdtp = (reduxState) => {
+//       return {
+          
+//           articles: reduxState.posts.allArticles
+//       }
+// }
+
+
+export default connect(mstp,null)(PublicFeed); 

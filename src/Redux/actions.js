@@ -6,7 +6,7 @@ export const userPostFetch = user => {
       method: "POST",
       headers: {
         'Content-Type': 'application/json',
-        Accept: 'application/json',
+        'Accept': 'application/json',
       },
       body: JSON.stringify({user})
     })
@@ -18,12 +18,40 @@ export const userPostFetch = user => {
           // 'message' if there is an error with creating the user, i.e. invalid username
           alert("try again")
         } else {
+         
           localStorage.setItem("token", data.token)
-          dispatch(setUserInformation(data.user))
+          dispatch(loginUser(data.user))
           //this user has no history so the push to profile isn't showing up
           history.push("/")
         }
       })
+  }
+}
+
+export const loginUser = userObj => (
+  console.log('this is logging in the user', localStorage),
+  {
+    type: 'LOGIN_USER',
+    payload: userObj
+  }
+)
+
+export const persistUser = () => {
+  return dispatch => {
+  if (localStorage.token) {
+    fetch("http://localhost:3000/persist", {
+      headers: {
+        "Authorization": `bearer ${localStorage.token}`
+      }
+    })
+    .then(r => r.json())
+    .then((resp) => {
+      console.log('is user here?',resp)
+      dispatch(loginUser(resp.user))
+      // this.props.history.push("/profile")
+
+    })
+    }
   }
 }
 
@@ -45,22 +73,43 @@ export const userLoginFetch = user => {
           // 'message' if there is an error with creating the user, i.e. invalid username
           alert("try again")
         } else {
+          console.log(data.user)
           localStorage.setItem("token", data.token)
           dispatch(loginUser(data.user))
-          // history.push("/profile")
+          history.push("/profile")
         }
       })
   }
 }
 
-export const loginUser = userObj => (
-  console.log('this is logging in the user', localStorage),
-  {
-    type: 'LOGIN_USER',
-    payload: userObj
+export const getProfileFetch = () => {
+  return dispatch => {
+    const token = localStorage.token;
+    if (token) {
+      return fetch("http://localhost:3000/profile", {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          Accept: 'application/json',
+          'Authorization': `Bearer ${token}`
+        }
+      })
+        .then(resp => resp.json())
+        .then(data => {
+          if (data.message) {
+            // An error will occur if the token is invalid.
+            // If this happens, you may want to remove the invalid token.
+            localStorage.removeItem("token")
+          } else {
+            console.log("profile fetch", data.user)
+            dispatch(loginUser(data.user))
+          }
+        })
+    }
+  }
 }
 
-)
+
 
   
   
@@ -74,10 +123,33 @@ export const loginUser = userObj => (
     }
   }
 
-  export const addPostToUser = (props) => {
-    console.log(props)
-    //fetch will go here
-  }
+  export const addPostToUser = (articleObj) => {
+    //right now it's just posting to posts
+    // I need to create a custom route for the user posts
+    return (dispatch) => {
+      return fetch("http://localhost:3000/posts", {
+          method: "POST",
+          headers: {
+            'Content-type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify(
+            {
+              title: articleObj.title,
+              content_url: articleObj.url,
+              description: articleObj.description,
+              url_image: articleObj.urlToImage,
+              content_body: articleObj.content  
+            })
+          })
+          .then(r => r.json())
+          .then(articleData => {
+            dispatch(userPostData(articleData))
+            
+          })
+        
+      }
+    }  
 
   export const userPostData = (postObj) => {
     return {
@@ -85,6 +157,9 @@ export const loginUser = userObj => (
       payload: postObj
     }
   }
+
+  //we need a fucntion that posts/persists to the database and reads from the database
+  //update the state and database of user_posts with a fetch
   
   export const logOut = () => {
     return {
