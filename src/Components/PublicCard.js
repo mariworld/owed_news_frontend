@@ -2,6 +2,8 @@ import React from 'react'
 import {addPostToUser} from '../Redux/actions'
 import {addPost} from '../Redux/postActions'
 import {connect} from 'react-redux'
+import "tabler-react/dist/Tabler.css";
+import { Card, Button } from "tabler-react";
 
 
 const PublicCard = (props) => {
@@ -10,8 +12,10 @@ const PublicCard = (props) => {
     const handleClick = () => {
         if(props.all.allArticles.find((article) => article.title)){
             props.addPostToUser(props.article)
+            // props.history.push("/profile")
         } else {
             props.addPost(props.article)
+            
         }
 
     }
@@ -19,7 +23,7 @@ const PublicCard = (props) => {
 
     let {title, url, urlToImage } = props.article
     return (
-        <React.Fragment>
+        <Card>
         <div>
             <div>
             <a href={url}>  
@@ -33,9 +37,9 @@ const PublicCard = (props) => {
             </div>
             </a>
         </div>
-                <button onClick={handleClick}>Add to Your News Bank</button>
+                <Button onClick={handleClick}>Add to Your News Bank</Button>
         </div>
-        </React.Fragment>
+        </Card>
     )
 }
 

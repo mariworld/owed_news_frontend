@@ -21,6 +21,7 @@ class App extends React.Component {
     this.props.persistUser()
     // this.props.getProfileFetch()
     this.props.fetchAndSetAllPosts()
+    console.log('refreshed')
   }
 
 
@@ -97,7 +98,8 @@ class App extends React.Component {
           <Route path="/login" render={ this.renderForm } />
           <Route path="/register" render={ this.renderForm } />
           <Route path="/profile" render={ this.renderProfile } />
-          <Route path="/" exact render={this.renderPublicFeed } />
+          <Route path="/articles" exact render={this.renderPublicFeed } />
+          <Route path="/" exact render={this.renderForm} />
           <Route render={ () => <p>Page not Found</p> } />
         </Switch>
       </div>

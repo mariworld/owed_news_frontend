@@ -2,12 +2,28 @@ import React, { Component } from 'react';
 import Post from './Post'
 import {connect} from 'react-redux'
 import '../App.css'
+import PublicCard from '../Components/PublicCard'
+import CardBookmark from './CardBookmark';
+// import {  }
 
 class ProfileContainer extends Component {
+  state = {
 
+  }
+  componentDidMount = () => {
+    this.renderCardBookmarks()
+  }
+  
+   renderCardBookmarks = () => {
+   return this.props.user.user_posts.map(userPostObj => {
+      return <CardBookmark
+              key={userPostObj.id}
+              article={userPostObj}/>
+    })
+  }
   render() {
-  //  let {username} = this.props.user.currentUser
-   console.log(this.props)
+      
+   console.log(this.props.user)
     return (
       <div>
         {this.props.user 
@@ -17,19 +33,11 @@ class ProfileContainer extends Component {
         <h2>Create an Account</h2>
         
       }
-        <h3>posts</h3>
+        <h3>Saved Articles</h3>
 
-        <ol>
-          {/* <div className="card-container">
-           <div className="card">
-            <img src="https://www.w3schools.com/howto/img_avatar.png" alt="Avatar" style={{width:"100%"}}/>
-            <div className="container">
-              <h4><b>John Doe</b></h4>
-              <p>Architect + Engineer</p>
-           </div>
-           </div>
-        </div>       */}
-        </ol>
+        <div className="grid">
+                {this.renderCardBookmarks()}
+            </div>
       </div>
     );
   }

@@ -55,6 +55,23 @@ export const persistUser = () => {
   }
 }
 
+export const fetchAndSetUserPosts = () => {
+  return dispatch => {
+    return fetch("http://localhost:3000/userposts")
+    .then(r => r.json())
+    .then(posts => {
+      dispatch(setAllUserPosts(console.log))
+    })
+  }
+}
+
+export const setAllUserPosts = (articlesArray) => {
+  return {
+    type: "SET_ALL_USER_POSTS",
+    payload: articlesArray
+  }
+}
+
 export const userLoginFetch = user => {
   return dispatch => {
     return fetch("http://localhost:3000/login", {
@@ -130,6 +147,7 @@ export const getProfileFetch = () => {
       return fetch("http://localhost:3000/posts", {
           method: "POST",
           headers: {
+            'Authorization': `Bearer ${localStorage.token}`,
             'Content-type': 'application/json',
             'Accept': 'application/json',
           },

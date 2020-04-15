@@ -3,6 +3,8 @@ import {NavLink} from 'react-router-dom'
 import {connect} from 'react-redux'
 import {logOut} from '../Redux/actions'
 import {Nav, Navbar} from 'react-bootstrap'
+import "tabler-react/dist/Tabler.css";
+import { Card, Button} from "tabler-react";
 
 const NavBar = (props) => {
 
@@ -13,26 +15,34 @@ const NavBar = (props) => {
   }
 
   return(
- <div>
-    <ul >
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
-      <li>
-        <NavLink to="/login">Login</NavLink>
-      </li>
-      <li>
-        <NavLink to="/register">Register</NavLink>
-      </li>
-      <li>
-        <NavLink to="/profile">Profile</NavLink>
-      </li>
-      <li>
-        <button onClick={handleClick}>Log out</button>
-      </li>
-    </ul>
-   
-    </div>
+    <div>
+  
+      <center>OWED NEWS</center>
+        <center>
+            <ul>
+              <Button><NavLink to="/articles">Article Store</NavLink></Button>
+            </ul>
+            <ul>
+              <Button><NavLink to="/profile">Profile</NavLink></Button>
+            </ul>
+            <ul>
+              <Button onClick={handleClick}>Log out</Button>
+            </ul>
+          </center>
+       
+         
+            <center>
+            <ul>
+             <Button><NavLink to="/login">Login</NavLink></Button>
+            </ul>
+             <ul>
+              <Button><NavLink to="/register">Register</NavLink></Button>
+            </ul>
+          </center>
+      
+        </div>
+ 
+
   )
 };
 

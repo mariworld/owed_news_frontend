@@ -24,6 +24,7 @@ export const fetchAndSetAllPosts = () => {
       return fetch("http://localhost:3000/posts", {
           method: "POST",
           headers: {
+            'Authorization': `Bearer ${localStorage.token}`,
             'Content-type': 'application/json',
             'Accept': 'application/json'
           },
@@ -33,7 +34,7 @@ export const fetchAndSetAllPosts = () => {
               content_url: articleObj.url,
               description: articleObj.description,
               url_image: articleObj.urlToImage,
-              content_body: articleObj.content  
+              content_body: articleObj.content
             }
           )
           .then(r => r.json())

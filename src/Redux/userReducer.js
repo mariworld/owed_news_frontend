@@ -3,7 +3,7 @@ let userInitialState = {
  {
   //  token: "",
   // username: "",
-  // user_posts: []
+  user_posts: []
 } 
   
 }
@@ -21,7 +21,7 @@ const userReducer = (state = userInitialState, action) => {
       // token: action.payload.token
     }
     case 'ADD_POST_TO_USER': {
-      console.log('this state is being triggered', state)
+      console.log('add post to user is being triggered', state)
       return {
         ...state,
         currentUser: {
