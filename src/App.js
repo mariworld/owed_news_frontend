@@ -10,7 +10,7 @@ import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
 
 // Whatever you import from your actionCreator file will be the second argument in connect's first set of ()
-import {loginUser, getProfileFetch, persistUser} from './Redux/actions.js'
+import {loginUser, getProfileFetch, persistUser, fetchAndSetUserPosts} from './Redux/actions.js'
 import {fetchAndSetAllPosts, setAllPosts, addPost} from './Redux/postActions.js'
 
 
@@ -22,10 +22,11 @@ class App extends React.Component {
     // this.props.getProfileFetch()
     this.props.fetchAndSetAllPosts()
     console.log('refreshed')
+
+    // this.props.fetchAndSetUserPosts()
+
+
   }
-
-
-
 
 
   // handleLoginSubmit = (userInfo) => {
@@ -89,11 +90,19 @@ class App extends React.Component {
     return <PublicFeed/>
   }
 
+  isLoggedIn = () => {
+    if(localStorage.token){
+      return true
+    } else {
+      return false
+    }
+  }
+
   render(){
     console.log(this.props)
     return (
       <div className="App">
-        <NavBar/>
+        <NavBar isLoggedIn={this.isLoggedIn}/>
         <Switch>
           <Route path="/login" render={ this.renderForm } />
           <Route path="/register" render={ this.renderForm } />
@@ -126,7 +135,9 @@ const mapStateToProps = (reduxState) => {
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
   fetchAndSetAllPosts: () => dispatch(fetchAndSetAllPosts()),
+  fetchAndSetUserPosts: () => dispatch(fetchAndSetUserPosts()),
   persistUser: () => dispatch(persistUser())
+
 
 })
 

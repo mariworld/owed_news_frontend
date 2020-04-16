@@ -1,18 +1,16 @@
 import React, { Component } from 'react';
-import Post from './Post'
 import {connect} from 'react-redux'
 import '../App.css'
-import PublicCard from '../Components/PublicCard'
 import CardBookmark from './CardBookmark';
 // import {  }
 
 class ProfileContainer extends Component {
-  state = {
+  // state = {
 
-  }
-  componentDidMount = () => {
-    this.renderCardBookmarks()
-  }
+  // }
+  // componentDidMount = () => {
+  //   this.renderCardBookmarks()
+  // }
   
    renderCardBookmarks = () => {
    return this.props.user.user_posts.map(userPostObj => {

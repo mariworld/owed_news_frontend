@@ -10,6 +10,8 @@ import thunk from 'redux-thunk';
 import userReducer from './Redux/userReducer'
 import postReducer from './Redux/postReducer'
 import history from './history'
+
+import './fonts/chomsky.regular.otf'
 //import package here and pass it to router
  
 // const saveToLocalStorage = (state) => {
@@ -57,11 +59,7 @@ const jointReducer = combineReducers(rootReducer())
   const store = createStore(
    jointReducer, composeEnhancers(applyMiddleware(thunk)))
    
-  //  const persistor = persistStore(store)
-
-   
-
-
+//  const persistor = persistStore(store)
 // store.subscribe(() => saveToLocalStorage(store.getState()))
 
 

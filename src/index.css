@@ -2,7 +2,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif, 'Chomsky';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -17,4 +17,10 @@ code {
   font-size: 3em;
   margin-bottom: 1.2rem;
   margin-left: 1rem;
+ 
 }
+
+/* @font-face {
+  font-family: 'Chomsky';
+  src: local('Chomsky'), ur;(./fonts/chomsky.regular.otf) format('truetype');
+} */

@@ -1,12 +1,16 @@
 import React from 'react'
-import {addPostToUser} from '../Redux/actions'
+import {addPostToUser, deletePostFromUser} from '../Redux/actions'
 import {addPost} from '../Redux/postActions'
 import {connect} from 'react-redux'
+import history from '../history';
 
 const CardBookmark = (props) => {
 
-    const handleClick = () => {
-        console.log('hi')
+    let handleDeletePost = (e) => {
+        console.log(props)
+        // console.log(props.energy)
+        props.deletePostFromUser(props.article.id)
+        history.push("/profile")
     }
     console.log(props)
     let {title, url, url_image, content_body} = props.article
@@ -26,7 +30,7 @@ const CardBookmark = (props) => {
             </div>
            
         </div>
-                <button onClick={handleClick}>Delete From Collection</button>
+                <button onClick={handleDeletePost}>Delete From Collection</button>
         </div>
         </React.Fragment>
       
@@ -35,7 +39,8 @@ const CardBookmark = (props) => {
 
 let mdtp = {
     addPostToUser,
-    addPost
+    addPost,
+    deletePostFromUser
 }
 
 const mstp = (reduxState) => {

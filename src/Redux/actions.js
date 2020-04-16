@@ -46,7 +46,7 @@ export const persistUser = () => {
     })
     .then(r => r.json())
     .then((resp) => {
-      console.log('is user here?',resp)
+      // console.log('is user here?',resp)
       dispatch(loginUser(resp.user))
       // this.props.history.push("/profile")
 
@@ -57,10 +57,10 @@ export const persistUser = () => {
 
 export const fetchAndSetUserPosts = () => {
   return dispatch => {
-    return fetch("http://localhost:3000/userposts")
+    return fetch("http://localhost:3000/user_posts")
     .then(r => r.json())
     .then(posts => {
-      dispatch(setAllUserPosts(console.log))
+      dispatch(setAllUserPosts(posts))
     })
   }
 }
@@ -90,7 +90,7 @@ export const userLoginFetch = user => {
           // 'message' if there is an error with creating the user, i.e. invalid username
           alert("try again")
         } else {
-          console.log(data.user)
+          // console.log(data.user)
           localStorage.setItem("token", data.token)
           dispatch(loginUser(data.user))
           history.push("/profile")
@@ -118,7 +118,7 @@ export const getProfileFetch = () => {
             // If this happens, you may want to remove the invalid token.
             localStorage.removeItem("token")
           } else {
-            console.log("profile fetch", data.user)
+            // console.log("profile fetch", data.user)
             dispatch(loginUser(data.user))
           }
         })
@@ -163,7 +163,7 @@ export const getProfileFetch = () => {
           .then(r => r.json())
           .then(articleData => {
             dispatch(userPostData(articleData))
-            
+            alert('This article has been added to your news bank!')
           })
         
       }
@@ -184,3 +184,31 @@ export const getProfileFetch = () => {
       type: "LOG_OUT"
     }
   }
+
+  export const deletePostFromUser = (id) => {
+    console.log(id)
+    return (dispatch) => {
+        return fetch(`http://localhost:3000/user_posts/${id}`, {
+            method: 'DELETE',
+             headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `bearer ${localStorage.token}`
+            }
+        })
+        .then(resp => resp.json(console.log))
+        .then(dataResp => {
+          
+            // console.log(dataResp)
+            dispatch(deletedPost(id))
+            alert('This article has been deleted from your news bank!')
+            history.push("/profile")
+            
+        })
+}
+}
+export const deletedPost = (id) => {
+     return {
+     type: "DELETE_POST_FROM_USER",
+     payload: id
+ }
+}

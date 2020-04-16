@@ -19,23 +19,23 @@ const PublicCard = (props) => {
         }
 
     }
-
+    console.log(props)
 
     let {title, url, urlToImage } = props.article
     return (
         <Card>
         <div>
             <div>
-            <a href={url}>  
+            
             <div className="card"> 
                 <img src={urlToImage} alt="Avatar" style={{maxWidth:"100%", maxHeight:"100%"}}/>
                 <div className="container">
-                    <h4><b>{title}</b></h4>
+                <a href={url}>  <h4><b>{title}</b></h4>  </a>
                     <p></p>
                    
                 </div>
             </div>
-            </a>
+           
         </div>
                 <Button onClick={handleClick}>Add to Your News Bank</Button>
         </div>

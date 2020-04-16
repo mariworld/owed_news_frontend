@@ -25,6 +25,7 @@ const userReducer = (state = userInitialState, action) => {
       return {
         ...state,
         currentUser: {
+          ...state.currentUser,
          user_posts: [...state.currentUser.user_posts, action.payload]
         } 
       }
@@ -35,6 +36,27 @@ const userReducer = (state = userInitialState, action) => {
         user_posts: action.payload.user_posts,
         token: action.payload.token
       }
+
+    case 'DELETE_POST_FROM_USER': {
+      return {
+        ...state,
+        currentUser: {
+        ...state.currentUser,
+          user_posts: state.currentUser.user_posts.filter(userPostObj => userPostObj.id !== action.payload)
+        }
+        // user_posts: [state.currentUser.user_posts.filter(userPostObj => userPostObj.id !== action.payload.id)]
+        
+      }
+    }
+
+    case 'SET_ALL_USER_POSTS': {
+      return {
+        ...state,
+        currentUser: {
+          user_posts: [...state.currentUser.user_posts]
+        }
+      }
+    }
     case 'LOG_OUT':
       return userInitialState
   
