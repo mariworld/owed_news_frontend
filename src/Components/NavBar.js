@@ -7,17 +7,11 @@ import "tabler-react/dist/Tabler.css";
 import { Card, Button} from "tabler-react";
 
 const NavBar = (props) => {
-console.log(props)
   const handleClick = () => {
-      console.log("you are now logging out",localStorage);
       props.logOut()
       localStorage.clear()
   }
-  console.log(props)
-
-  //hook that gives access to the redux store
-  const user = useSelector(state => state.user)
-  console.log(user)
+ const user = useSelector(state => state.user)
 
   return(
   
@@ -46,35 +40,7 @@ console.log(props)
       )}
       
       <div align='center' className='header'>Owed News</div>
-   
-
-         {/* <div> 
-            <ul>
-              <Button><NavLink to="/articles">Article Store</NavLink></Button>
-            </ul>
-            <ul>
-              <Button><NavLink to="/profile">Profile</NavLink></Button>
-            </ul>
-            <ul>
-              <Button onClick={handleClick}>Log out</Button>
-            </ul>
-          </div>
-       
-         
-            <center>
-            <ul>
-             <Button><NavLink to="/login">Login</NavLink></Button>
-            </ul>
-             <ul>
-              <Button><NavLink to="/register">Register</NavLink></Button>
-            </ul>
-          </center> */}
-
-       
-      
-    </div>
- 
-
+  
   )
 };
 
