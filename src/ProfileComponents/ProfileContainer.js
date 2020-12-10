@@ -5,12 +5,6 @@ import CardBookmark from './CardBookmark';
 // import {  }
 
 class ProfileContainer extends Component {
-  // state = {
-
-  // }
-  // componentDidMount = () => {
-  //   this.renderCardBookmarks()
-  // }
   
    renderCardBookmarks = () => {
    return this.props.user.user_posts.map(userPostObj => {
@@ -51,7 +45,4 @@ const getInfoPlease = (reduxState) => {
 }
 
 
-
-
 export default connect(getInfoPlease, {})(ProfileContainer);
-//connect takes two arguments, 1.) the state's store and mapDispatchToProps
