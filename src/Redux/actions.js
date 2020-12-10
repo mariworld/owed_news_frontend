@@ -21,7 +21,6 @@ export const userPostFetch = user => {
          
           localStorage.setItem("token", data.token)
           dispatch(loginUser(data.user))
-          //this user has no history so the push to profile isn't showing up
           history.push("/")
         }
       })
@@ -131,7 +130,6 @@ export const getProfileFetch = () => {
   
   
   export const setUserInformation = (responseFromFetch) => {
-    console.log(responseFromFetch);
     //this repsonse from the fetch needs to trigger the app.js function
     return {
       type: "SET_USER_INFORMATION",
@@ -141,8 +139,6 @@ export const getProfileFetch = () => {
   }
 
   export const addPostToUser = (articleObj) => {
-    //right now it's just posting to posts
-    // I need to create a custom route for the user posts
     return (dispatch) => {
       return fetch("http://localhost:3000/posts", {
           method: "POST",
@@ -176,8 +172,6 @@ export const getProfileFetch = () => {
     }
   }
 
-  //we need a fucntion that posts/persists to the database and reads from the database
-  //update the state and database of user_posts with a fetch
   
   export const logOut = () => {
     return {
@@ -197,8 +191,6 @@ export const getProfileFetch = () => {
         })
         .then(resp => resp.json(console.log))
         .then(dataResp => {
-          
-            // console.log(dataResp)
             dispatch(deletedPost(id))
             alert('This article has been deleted from your news bank!')
             history.push("/profile")
