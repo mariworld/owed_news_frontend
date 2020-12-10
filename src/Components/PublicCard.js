@@ -12,10 +12,8 @@ const PublicCard = (props) => {
     const handleClick = () => {
         if(props.all.allArticles.find((article) => article.title)){
             props.addPostToUser(props.article)
-            // props.history.push("/profile")
         } else {
             props.addPost(props.article)
-            
         }
 
     }
@@ -50,7 +48,6 @@ let mdtp = {
 
 const mstp = (reduxState) => {
     return {
-      //these are ALL POSTS
       all: reduxState.posts
     }
   }
