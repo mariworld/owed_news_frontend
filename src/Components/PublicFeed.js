@@ -29,12 +29,5 @@ const mstp = (reduxState) => {
     }
   }
 
-//   const mdtp = (reduxState) => {
-//       return {
-          
-//           articles: reduxState.posts.allArticles
-//       }
-// }
-
 
 export default connect(mstp,null)(PublicFeed); 
