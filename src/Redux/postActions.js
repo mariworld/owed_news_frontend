@@ -2,21 +2,13 @@
 export const fetchAndSetAllPosts = () => {
     return (dispatch) => {
       // fetch(`http://newsapi.org/v2/everything?domains=wsj.com&apiKey=${process.env.REACT_APP_GOOGLE_API_KEY}`)
-      // fetch('https://jsonplaceholder.typicode.com/todos/1')
       fetch('http://localhost:3000/news')
       .then(r => r.json())
       .then((posts) => {
         dispatch(setAllPosts(posts.articles))
-        console.log(posts)
-        // posts.articles.forEach(article => {
         })
-        
-        //need to fix this later that but put a post fecth below
-        
-        
       }
     }
-    
     
     
     export const addPost = (articleObj) => {
