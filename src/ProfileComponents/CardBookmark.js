@@ -8,7 +8,6 @@ const CardBookmark = (props) => {
 
     let handleDeletePost = (e) => {
         console.log(props)
-        // console.log(props.energy)
         props.deletePostFromUser(props.article.id)
         history.push("/profile")
     }
