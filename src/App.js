@@ -8,68 +8,18 @@ import PublicFeed from './Components/PublicFeed'
 import ProfileContainer from './ProfileComponents/ProfileContainer.js'
 import {withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-
-// Whatever you import from your actionCreator file will be the second argument in connect's first set of ()
 import {loginUser, getProfileFetch, persistUser, fetchAndSetUserPosts} from './Redux/actions.js'
 import {fetchAndSetAllPosts, setAllPosts, addPost} from './Redux/postActions.js'
 
 
 class App extends React.Component {
 
-
   componentDidMount = () => {
     this.props.persistUser()
-    // this.props.getProfileFetch()
     this.props.fetchAndSetAllPosts()
     console.log('refreshed')
-
-    // this.props.fetchAndSetUserPosts()
-
-
   }
 
-
-  // handleLoginSubmit = (userInfo) => {
-  //   console.log("Login form has been submitted")
-  //   fetch("http://localhost:3000/login", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json"
-  //     },
-  //     body: JSON.stringify(userInfo)
-  //   })
-  //   .then(r => r.json())
-  //   .then((resp) => {
-  //     localStorage.token = resp.token
-  //     this.props.setUserInformation(resp)
-  //     this.props.history.push("/profile")
-  //   })
-
-
-  // }
-
-  // handleRegisterSubmit = (userInfo) => {
-  //   console.log("Register form has been submitted")
-  //   fetch("http://localhost:3000/users", {
-  //     method: "POST",
-  //     headers: {
-  //       "content-type": "application/json"
-  //     },
-  //     body: JSON.stringify({
-  //       username: userInfo.username,
-  //       password: userInfo.password
-  //     })
-  //   })
-  //   .then(r => r.json())
-  //   .then((resp) => {
-  //     console.log(resp)
-  //     localStorage.token = resp.token
-  //     this.props.setUserInformation(resp)
-  //     this.props.history.push("/profile")
-  //     // window.location.reload()
-  //   })
-
-  // }
 
   renderForm = (routerProps) => {
     if (this.props.token) {
@@ -120,18 +70,11 @@ class App extends React.Component {
 const mapStateToProps = (reduxState) => {
   return {
     token: reduxState.user.token,
-    // username: reduxState.user.username
     currentUser: reduxState.user.currentUser
   }
 }
 
-// let mapDispatchToProps = {
-//   // setUserInformation,
-//   loginUser,
-//   setAllPosts,
-//   fetchAndSetAllPosts,
-//   getProfileFetch
-// }
+
 const mapDispatchToProps = dispatch => ({
   getProfileFetch: () => dispatch(getProfileFetch()),
   fetchAndSetAllPosts: () => dispatch(fetchAndSetAllPosts()),
