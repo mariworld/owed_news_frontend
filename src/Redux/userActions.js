@@ -13,9 +13,6 @@ export const userPostFetch = user => {
       .then(resp => resp.json())
       .then(data => {
         if (data.message) {
-          // Here you should have logic to handle invalid creation of a user.
-          // This assumes your Rails API will return a JSON object with a key of
-          // 'message' if there is an error with creating the user, i.e. invalid username
           alert("try again")
         } else {
          
@@ -45,10 +42,7 @@ export const persistUser = () => {
     })
     .then(r => r.json())
     .then((resp) => {
-      // console.log('is user here?',resp)
       dispatch(loginUser(resp.user))
-      // this.props.history.push("/profile")
-
     })
     }
   }
@@ -84,12 +78,8 @@ export const userLoginFetch = user => {
       .then(resp => resp.json())
       .then(data => {
         if (data.message) {
-          // Here you should have logic to handle invalid creation of a user.
-          // This assumes your Rails API will return a JSON object with a key of
-          // 'message' if there is an error with creating the user, i.e. invalid username
           alert("try again")
         } else {
-          // console.log(data.user)
           localStorage.setItem("token", data.token)
           dispatch(loginUser(data.user))
           history.push("/profile")
@@ -113,11 +103,8 @@ export const getProfileFetch = () => {
         .then(resp => resp.json())
         .then(data => {
           if (data.message) {
-            // An error will occur if the token is invalid.
-            // If this happens, you may want to remove the invalid token.
             localStorage.removeItem("token")
           } else {
-            // console.log("profile fetch", data.user)
             dispatch(loginUser(data.user))
           }
         })
@@ -125,12 +112,8 @@ export const getProfileFetch = () => {
   }
 }
 
-
-
-  
   
   export const setUserInformation = (responseFromFetch) => {
-    //this repsonse from the fetch needs to trigger the app.js function
     return {
       type: "SET_USER_INFORMATION",
       payload: responseFromFetch
