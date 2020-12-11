@@ -2,7 +2,7 @@
 export const fetchAndSetAllPosts = () => {
     return (dispatch) => {
         //fetch('http://localhost:3000/news')
-      fetch(`http://newsapi.org/v2/everything?domains=wsj.com&apiKey=${process.env.REACT_APP_GOOGLE_API_KEY}`)
+      fetch(`http://newsapi.org/v2/everything?domains=sfchronicle.com&apiKey=${process.env.REACT_APP_GOOGLE_API_KEY}`)
       .then(r => r.json())
       .then((posts) => {
         dispatch(setAllPosts(posts.articles))
